@@ -28,6 +28,7 @@ from DISClib.ADT.graph import gr
 from DISClib.ADT import map as m
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
+from DISClib.DataStructures import rbt as rbt
 from DISClib.Algorithms.Graphs import scc
 from DISClib.Algorithms.Graphs import dijsktra as djk
 from DISClib.Utils import error as error
@@ -43,6 +44,13 @@ de creacion y consulta sobre las estructuras de datos.
 # -----------------------------------------------------
 
 # Funciones para agregar informacion al grafo
+
+def create_analyzer():
+    analyzer = {'Viajes' : m.newMap(),
+                'Compañía' : m.newMap(),
+                'Fechas' : rbt.newMap(),
+                'Grafo' : gr.newGraph() }
+    return analyzer
 
 # ==============================
 # Funciones de consulta
