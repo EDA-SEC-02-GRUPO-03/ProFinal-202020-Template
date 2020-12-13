@@ -45,11 +45,16 @@ de creacion y consulta sobre las estructuras de datos.
 
 # Funciones para agregar informacion al grafo
 
-def create_analyzer():
-    analyzer = {'Viajes' : m.newMap(),
-                'Compañía' : m.newMap(),
-                'Fechas' : rbt.newMap(),
-                'Grafo' : gr.newGraph() }
+def newAnalyzer():
+    analyzer = {'viajes': m.newMap(),
+                'compañias': m.newMap(numelements=14000,
+                                     maptype='PROBING',
+                                     comparefunction=compareCompanies),
+                'fechas': rbt.newMap(),
+                'grafo': gr.newGraph(datastructure='ADJ_LIST',
+                                     directed=True,
+                                     size=1000,
+                                     comparefunction=compareStations)}
     return analyzer
 
 # ==============================
@@ -63,3 +68,21 @@ def create_analyzer():
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+def compareCompanies(c1, c2):
+    # print(c1, c2)
+    if (c1 == c2):
+        return 0
+    elif (c1 > c2):
+        return 1
+    else:
+        return -1
+
+def compareStations(stop, keyvaluestop):
+    stopcode = str(keyvaluestop['key'])
+    if (stop == stopcode):
+        return 0
+    elif (stop > stopcode):
+        return 1
+    else:
+        return -1

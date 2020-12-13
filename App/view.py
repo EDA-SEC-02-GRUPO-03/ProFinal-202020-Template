@@ -48,6 +48,64 @@ operación seleccionada.
 #  Menu principal
 # ___________________________________________________
 
+def printMenu():
+    print("\n")
+    print("------------------------------------------------------")
+    print("Bienvenido al analizador de Servicios de Taxis en Chicago")
+    print("------------------------------------------------------\n")
+    print("1- Inicializar Analizador")
+    print("2- Cargar información")
+    print("3- Reporte general")
+    print("4- Sistema de puntos y premios ")
+    print("5- Desplazarse en el menor tiempo entre dos “CommunityAreas”")
+    print("0- Salir")
+    print("------------------------------------------------------")
+
+def optionTwo():
+    controller.loadTrips(cont)
+    numedges = controller.totalConnections(cont)
+    numvertex = controller.totalStops(cont)
+    print('Número de vértices: ' + str(numvertex))
+    print('Número de arcos: ' + str(numedges))
+
+def optionThree():
+    pass
+
+def optionFour():
+    pass
+
+def optionFive():
+    pass
+
 """
 Menu principal
 """
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n>')
+
+    if int(inputs) == 1:
+        print("\nInicializando....")
+        # cont es el controlador que se usará de acá en adelante
+        cont = controller.init()
+
+    elif int(inputs[0]) == 2:
+
+        executiontime = timeit.timeit(optionTwo, number=1)
+        print("Tiempo de ejecución: " + str(executiontime))
+
+    elif int(inputs[0]) == 3:
+        executiontime = timeit.timeit(optionThree, number=1)
+        print("Tiempo de ejecución: " + str(executiontime))
+
+    elif int(inputs[0]) == 4:
+        executiontime = timeit.timeit(optionFour, number=1)
+        print("Tiempo de ejecución: " + str(executiontime))
+
+    elif int(inputs[0]) == 5:
+        executiontime = timeit.timeit(optionFive, number=1)
+        print("Tiempo de ejecución: " + str(executiontime))
+    else:
+        sys.exit(0)
+sys.exit(0)
