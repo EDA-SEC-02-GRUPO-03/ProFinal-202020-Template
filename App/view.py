@@ -28,6 +28,7 @@
 import sys
 import config
 from App import controller
+from App import model
 from DISClib.ADT import stack
 import timeit
 assert config
@@ -43,7 +44,12 @@ operación seleccionada.
 #  Variables
 # ___________________________________________________
 
-
+taxis = controller.init()
+controller.loadTrips(taxis)
+print (model.num_taxis(taxis))
+print (model.num_companias(taxis))
+print (model.top_companias_taxis(taxis,10))
+print (model.top_companias_servicios(taxis,10))
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________

@@ -46,7 +46,7 @@ def init():
     Llama la funcion de inicializacion  del modelo.
     """
     # analyzer es utilizado para interactuar con el modelo
-    analyzer = model.newAnalyzer()
+    analyzer = model.create_analyzer()
     return analyzer
 
 # ___________________________________________________
@@ -68,7 +68,7 @@ def loadFile(taxi_trips, tripfile):
                                 delimiter=",")
     for trip in input_file:
         model.addTrip(taxi_trips, trip)
-
+    print ('Done')
     return taxi_trips
 
 # ___________________________________________________
