@@ -53,7 +53,7 @@ sys.setrecursionlimit(recursionLimit)
 def printMenu():
     print("\n")
     print("------------------------------------------------------")
-    print("Bienvenido al analizador de Servicios de Taxis en Chicago")
+    print("🚖 Bienvenido al analizador de Servicios de Taxis en Chicago 🚖")
     print("------------------------------------------------------\n")
     print("1- Inicializar Analizador")
     print("2- Cargar información")
@@ -65,7 +65,10 @@ def printMenu():
 
 
 def optionTwo():
-    controller.loadTrips(cont)
+    try:
+        controller.loadTrips(cont)
+    except:
+        print('❌ No se pudo cargar los datos')
     # numedges = controller.totalConnections(cont)
     # numvertex = controller.totalStops(cont)
     # print('Número de vértices: ' + str(numvertex))
@@ -73,11 +76,59 @@ def optionTwo():
 
 
 def optionThree():
-    pass
+    n_taxis = input('✔ Ingrese la cantidad de compañias para el top por taxis: ')
+    n_servi = input('✔ Ingrese la cantidad de compañias para el top por servicios: ')
+
+    try:
+        num_taxis = controller.ejec_num_taxis(cont)
+        print('🚕 Número de taxis:', num_taxis)
+    except:
+        print('❌ No se pudo encontrar la cantidad de taxis')
+
+    try:
+        num_companias = controller.ejec_num_companias(cont)
+        print('🌐 Numero de compañias:', num_companias)
+    except:
+        print('❌ No se pudo encontrar la cantidad de compañias')
+
+    try:
+        top_com_t = controller.ejec_top_companias_taxis(cont, n_taxis)
+        print('🏆 Top de compañias por taxis:')
+        for i in top_com_t:
+            print('-', i)
+    except:
+        print('❌ No se pudo encontrar el top por taxis')
+
+    try:
+        top_com_s = controller.ejec_top_companias_servicios(cont, n_servi)
+        print('🏆 Top de compañias por servicios:')
+        for i in top_com_s:
+            print('-',i)
+    except:
+        print('❌ No se pudo encontrar el top por servicios')
 
 
 def optionFour():
-    pass
+    taxis = input('✔ Ingrese la cantidad de taxis para el top por puntaje:')
+    f = input('📅 ingrese la fecha para para el top por puntos:')
+    taxis_f = input('✔ Ingrese la cantidad de taxis para el top por puntaje en un rango: ')
+    f_i = input('📅 ingrese la fecha inicial para el top en rango por puntos:')
+    f_f = input('📅 ingrese la fecha final para el top en rango por puntos:')
+
+    try:
+        resul = controller.ejec_top_taxis_puntaje(cont, f, taxis)
+        for i in resul:
+            print('-',i)
+
+    except:
+        print('❌ No se pudo encontrar el top por puntaje en esta fecha')
+
+    try:
+        resul = controller.ejec_top_taxis_rango(cont, f_i, f_f, taxis_f)
+        for i in resul:
+            print('-',i)
+    except:
+        print('❌ No se pudo encontrar el top por puntaje en este rango')
 
 
 def optionFive():

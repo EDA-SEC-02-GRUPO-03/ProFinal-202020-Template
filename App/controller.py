@@ -59,7 +59,7 @@ def init():
 def loadTrips(taxi_trips):
     for filename in os.listdir(cf.data_dir):
         if filename.endswith('.csv'):
-            print('Cargando archivo: ' + filename)
+            print('⏳ Cargando archivo: ' + filename)
             loadFile(taxi_trips, filename)
 
     return taxi_trips
@@ -71,13 +71,52 @@ def loadFile(taxi_trips, tripfile):
                                 delimiter=",")
     for trip in input_file:
         model.addTrip(taxi_trips, trip)
-    print('Done!')
+    print('✔ Done!')
     return taxi_trips
 
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
 
+'''
+PARTE A
+'''
+
+def ejec_num_taxis(taxi_trips):
+    resul = model.num_taxis(taxi_trips)
+    return resul
+
+
+def ejec_num_companias(taxi_trips):
+    resul = model.num_companias(taxi_trips)
+    return resul
+
+
+def ejec_top_companias_taxis(taxi_trips, num):
+    resul = model.top_companias_taxis(taxi_trips, num)
+    return resul
+
+
+def ejec_top_companias_servicios(taxi_trips, num):
+    resul = model.top_companias_servicios(taxi_trips, num)
+    return resul
+
+'''
+PARTE B
+'''
+
+def ejec_top_taxis_puntaje(taxi_trips, fecha, num):
+    resul = model.top_taxis_puntaje(taxi_trips, fecha, num)
+    return resul
+
+
+def ejec_top_taxis_rango(taxi_trips, fechain, fechafin, num):
+    resul = model.top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num)
+    return resul
+
+'''
+PARTE C
+'''
 
 def totalConnections(analyzer):
     """
