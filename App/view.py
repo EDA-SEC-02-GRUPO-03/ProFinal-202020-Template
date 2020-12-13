@@ -47,7 +47,7 @@ sys.setrecursionlimit(recursionLimit)
 
 taxis = controller.init()
 controller.loadTrips(taxis)
-print(model.top_taxis_puntaje_rango(taxis, '2019-09-30', '2020-10-31', 5))
+print(model.top_taxis_puntaje_rango(taxis, '2019-09-30', '2020-10-31', 8))
 
 # ___________________________________________________
 #  Menu principal
