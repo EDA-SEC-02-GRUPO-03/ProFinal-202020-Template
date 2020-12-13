@@ -119,6 +119,7 @@ def addCompany(taxi_trips, trip):
 
     return taxi_trips
 
+
 '''
 PARTE A
 '''
