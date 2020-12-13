@@ -266,7 +266,7 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
                         dicc['millas'] += float(trip['value']['trip_miles'])
                         dicc['costo'] += float(trip['value']['trip_total'])
                 m.put(mapa, trip['value']['taxi_id'], dicc)
-                
+
     lista = []
     alfas = []
     retorno = []
@@ -289,6 +289,12 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
         i+=1
     
     return retorno
+
+'''
+PARTE C
+'''
+
+
 
 # ==============================
 # Funciones de Comparacion
