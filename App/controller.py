@@ -25,7 +25,7 @@
  """
 
 import config as cf
-from App import model
+import model
 import csv
 import os
 
@@ -54,22 +54,22 @@ def init():
 #  de datos en los modelos
 # ___________________________________________________
 
-def loadTrips(citibike):
+def loadTrips(taxi_trips):
     for filename in os.listdir(cf.data_dir):
         if filename.endswith('.csv'):
             print('Cargando archivo: ' + filename)
-            loadFile(citibike, filename)
-    model.avgDuration(citibike)
+            loadFile(taxi_trips, filename)
 
-    return citibike
+    return taxi_trips
 
-def loadFile(citibike, tripfile):
+def loadFile(taxi_trips, tripfile):
     tripfile = cf.data_dir + tripfile
     input_file = csv.DictReader(open(tripfile, encoding="utf-8"),
                                 delimiter=",")
     for trip in input_file:
-        model.addTrip(citibike, trip)
-    return citibike
+        model.addTrip(taxi_trips, trip)
+    print ('Done!')
+    return taxi_trips
 
 # ___________________________________________________
 #  Funciones para consultas

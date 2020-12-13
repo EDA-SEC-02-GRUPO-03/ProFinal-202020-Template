@@ -28,6 +28,7 @@
 import sys
 import config
 from App import controller
+from App import model
 from DISClib.ADT import stack
 import timeit
 assert config
@@ -38,11 +39,15 @@ Presenta el menu de opciones  y  por cada seleccion
 hace la solicitud al controlador para ejecutar la
 operación seleccionada.
 """
-
+recursionLimit = 20000
+sys.setrecursionlimit(recursionLimit)
 # ___________________________________________________
 #  Variables
 # ___________________________________________________
 
+taxis = controller.init()
+controller.loadTrips(taxis)
+print(model.top_taxis_puntaje_rango(taxis, '2019-09-30', '2020-10-31', 8))
 
 # ___________________________________________________
 #  Menu principal

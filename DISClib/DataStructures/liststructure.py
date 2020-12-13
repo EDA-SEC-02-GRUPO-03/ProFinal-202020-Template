@@ -36,7 +36,7 @@ assert config
 """
 
 
-def newList(datastructure='SINGLE_LINKED', cmpfunction=None):
+def newList(datastructure='ARRAY_LIST', cmpfunction=None):
     """Crea una lista vacia.
 
     Args:
