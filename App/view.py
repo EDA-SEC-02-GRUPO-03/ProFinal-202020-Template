@@ -39,17 +39,16 @@ Presenta el menu de opciones  y  por cada seleccion
 hace la solicitud al controlador para ejecutar la
 operación seleccionada.
 """
-
+recursionLimit = 20000
+sys.setrecursionlimit(recursionLimit)
 # ___________________________________________________
 #  Variables
 # ___________________________________________________
 
 taxis = controller.init()
 controller.loadTrips(taxis)
-print (model.num_taxis(taxis))
-print (model.num_companias(taxis))
-print (model.top_companias_taxis(taxis,10))
-print (model.top_companias_servicios(taxis,10))
+print(model.top_taxis_puntaje_rango(taxis, '2019-09-30', '2020-10-31', 5))
+
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________

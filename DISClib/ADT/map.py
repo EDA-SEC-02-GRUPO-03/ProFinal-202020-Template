@@ -39,7 +39,7 @@ assert config
 
 def newMap(numelements=17,
            prime=109345121,
-           maptype='CHAINING',
+           maptype='PROBING',
            loadfactor=0.5,
            comparefunction=None):
     """Crea una tabla de simbolos (map) sin orden
