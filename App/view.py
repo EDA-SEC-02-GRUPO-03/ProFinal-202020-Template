@@ -45,13 +45,10 @@ sys.setrecursionlimit(recursionLimit)
 #  Variables
 # ___________________________________________________
 
-taxis = controller.init()
-controller.loadTrips(taxis)
-print(model.top_taxis_puntaje_rango(taxis, '2019-09-30', '2020-10-31', 8))
-
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
 
 def printMenu():
     print("\n")
@@ -66,6 +63,7 @@ def printMenu():
     print("0- Salir")
     print("------------------------------------------------------")
 
+
 def optionTwo():
     controller.loadTrips(cont)
     numedges = controller.totalConnections(cont)
@@ -73,14 +71,18 @@ def optionTwo():
     print('Número de vértices: ' + str(numvertex))
     print('Número de arcos: ' + str(numedges))
 
+
 def optionThree():
     pass
+
 
 def optionFour():
     pass
 
+
 def optionFive():
     pass
+
 
 """
 Menu principal

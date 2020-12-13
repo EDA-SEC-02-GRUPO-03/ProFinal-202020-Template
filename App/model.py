@@ -47,11 +47,12 @@ de creacion y consulta sobre las estructuras de datos.
 
 # Funciones para agregar informacion al grafo
 
+
 def create_analyzer():
-    taxi_trips = {'viajes' : None,
-                  'compañia' : None,
-                  'fechas' : None,
-                  'grafo' : None
+    taxi_trips = {'viajes': None,
+                  'compañia': None,
+                  'fechas': None,
+                  'grafo': None
                   }
 
     taxi_trips['viajes'] = m.newMap(numelements=60000,
@@ -59,35 +60,38 @@ def create_analyzer():
                                     comparefunction=compareTrips)
 
     taxi_trips['compania'] = m.newMap(numelements=60000,
-                                    maptype='PROBING',
-                                    comparefunction=compareTrips)
+                                      maptype='PROBING',
+                                      comparefunction=compareTrips)
 
-    taxi_trips['fechas'] = om.newMap('RBT',comparefunction=compareDates)
+    taxi_trips['fechas'] = om.newMap('RBT', comparefunction=compareDates)
 
     taxi_trips['grafo'] = gr.newGraph(datastructure='ADJ_LIST',
-                                        directed=True,
-                                        size=1000,
-                                        comparefunction=compareTrips)
+                                      directed=True,
+                                      size=1000,
+                                      comparefunction=compareTrips)
     return taxi_trips
 
 # ==============================
 # Funciones de consulta
 # ==============================
 
+
 def addTrip(taxi_trips, trip):
-    m.put(taxi_trips['viajes'],trip['trip_id'], trip)
+    m.put(taxi_trips['viajes'], trip['trip_id'], trip)
     updateDateIndex(taxi_trips, trip)
     addCompany(taxi_trips, trip)
     return taxi_trips
 
+
 def updateDateIndex(taxi_trips, trip):
-    occurreddate = trip['trip_start_timestamp'][0:10] + ' ' + trip['trip_start_timestamp'][11:19]
+    occurreddate = trip['trip_start_timestamp'][0:10] + ' ' + \
+        trip['trip_start_timestamp'][11:19]
     tripdate = datetime.datetime.strptime(occurreddate, '%Y-%m-%d %H:%M:%S')
     viaje = trip['trip_id']
     if om.contains(taxi_trips['fechas'], tripdate.date()):
         entry = om.get(taxi_trips['fechas'], tripdate.date())
-        lt.addLast(entry['value'],viaje)
-        om.put(taxi_trips['fechas'],tripdate.date(), entry['value'])
+        lt.addLast(entry['value'], viaje)
+        om.put(taxi_trips['fechas'], tripdate.date(), entry['value'])
     else:
         ids = lt.newList()
         lt.addFirst(ids, viaje)
@@ -95,22 +99,23 @@ def updateDateIndex(taxi_trips, trip):
 
     return taxi_trips
 
+
 def addCompany(taxi_trips, trip):
     compania = trip['company']
     if compania == '':
         compania = 'Independent Owner'
     taxi = trip['taxi_id']
-    if m.contains(taxi_trips['compania'],compania) == False:
+    if m.contains(taxi_trips['compania'], compania) is False:
         lista = lt.newList()
-        lt.addLast(lista,taxi)
-        valor = [lista, 1] #la cantidad de viajes por empresa
-        m.put(taxi_trips['compania'],compania,valor)
+        lt.addLast(lista, taxi)
+        valor = [lista, 1]  # la cantidad de viajes por empresa
+        m.put(taxi_trips['compania'], compania, valor)
     else:
-        entry = m.get(taxi_trips['compania'],compania)
-        if lt.isPresent(entry['value'][0],taxi) == 0:
-            lt.addLast(entry['value'][0],taxi)
+        entry = m.get(taxi_trips['compania'], compania)
+        if lt.isPresent(entry['value'][0], taxi) == 0:
+            lt.addLast(entry['value'][0], taxi)
         entry['value'][1] += 1
-        m.put(taxi_trips['compania'],compania,entry['value'])
+        m.put(taxi_trips['compania'], compania, entry['value'])
 
     return taxi_trips
 
@@ -122,7 +127,8 @@ def addCompany(taxi_trips, trip):
 PARTE A
 '''
 
-def num_taxis (taxi_trips):
+
+def num_taxis(taxi_trips):
     iterador = it.newIterator(m.keySet(taxi_trips['compania']))
     taxis = 0
     while it.hasNext(iterador):
@@ -131,8 +137,10 @@ def num_taxis (taxi_trips):
         taxis += lt.size(dicc['value'][0])
     return taxis
 
+
 def num_companias(taxi_trips):
     return lt.size(m.keySet(taxi_trips['compania']))
+
 
 def top_companias_taxis(taxi_trips, num):
     lista = []
@@ -153,7 +161,7 @@ def top_companias_taxis(taxi_trips, num):
         retorno.append(lista[j])
         lista.remove(lista[j])
         cantidades.remove(max(cantidades))
-        i+=1
+        i += 1
     return retorno
 
 
@@ -176,19 +184,22 @@ def top_companias_servicios(taxi_trips, num):
         retorno.append(lista[j])
         lista.remove(lista[j])
         cantidades.remove(max(cantidades))
-        i+=1
+        i += 1
     return retorno
+
 
 '''
 PARTE B
 '''
+
+
 def top_taxis_puntaje(taxi_trips, fecha, num):
     fecha = datetime.datetime.strptime(fecha, '%Y-%m-%d')
-    arbol = om.get(taxi_trips['fechas'],fecha.date())
+    arbol = om.get(taxi_trips['fechas'], fecha.date())
     mapa = m.newMap(numelements=600,
                     maptype='PROBING',
                     comparefunction=compareid)
-    if arbol == None:
+    if arbol is None:
         return 'No hay viajes en la fecha'
     else:
         iterador = it.newIterator(arbol['value'])
@@ -197,16 +208,22 @@ def top_taxis_puntaje(taxi_trips, fecha, num):
             trip = m.get(taxi_trips['viajes'], element)
             if m.contains(mapa, trip['value']['taxi_id']):
                 datos = m.get(mapa, trip['value']['taxi_id'])
-                if (trip['value']['trip_miles']) != '' and (trip['value']['trip_total']) != '':
-                    if float(trip['value']['trip_miles']) > 0 and float(trip['value']['trip_total']) >0:
+                if (trip['value']['trip_miles']) != '' and \
+                   (trip['value']['trip_total']) != '':
+                    if float(trip['value']['trip_miles']) > 0 and \
+                       float(trip['value']['trip_total']) > 0:
                         datos['value']['servicios'] += 1
-                        datos['value']['millas'] += float(trip['value']['trip_miles'])
-                        datos['value']['costo'] += float(trip['value']['trip_total'])
-                m.put(mapa,trip['value']['taxi_id'], datos['value'])
+                        tripM = float(trip['value']['trip_miles'])
+                        datos['value']['millas'] += tripM
+                        tripT = float(trip['value']['trip_total'])
+                        datos['value']['costo'] += tripT
+                m.put(mapa, trip['value']['taxi_id'], datos['value'])
             else:
-                dicc = {'servicios':0, 'millas':0, 'costo':0 }
-                if (trip['value']['trip_miles']) != '' and (trip['value']['trip_total']) != '':
-                    if float(trip['value']['trip_miles']) > 0 and float(trip['value']['trip_total']) >0:
+                dicc = {'servicios': 0, 'millas': 0, 'costo': 0}
+                if (trip['value']['trip_miles']) != '' and \
+                   (trip['value']['trip_total']) != '':
+                    if float(trip['value']['trip_miles']) > 0 and \
+                       float(trip['value']['trip_total']) > 0:
                         dicc['servicios'] += 1
                         dicc['millas'] += float(trip['value']['trip_miles'])
                         dicc['costo'] += float(trip['value']['trip_total'])
@@ -220,20 +237,22 @@ def top_taxis_puntaje(taxi_trips, fecha, num):
         element = it.next(iterador)
         dicc = m.get(mapa, element)
         if dicc['value']['costo'] != 0:
-            alfa = dicc['value']['servicios']*dicc['value']['millas']/dicc['value']['costo']
+            alfa = dicc['value']['servicios'] * \
+                   dicc['value']['millas'] / dicc['value']['costo']
         else:
             alfa = 0
         lista.append(dicc['key'])
-        alfas.append(round(alfa,2))
+        alfas.append(round(alfa, 2))
     i = 0
     while i < num and len(alfas) != 0:
         j = alfas.index(max(alfas))
-        retorno.append((lista[j],max(alfas)))
+        retorno.append((lista[j], max(alfas)))
         lista.remove(lista[j])
         alfas.remove(max(alfas))
-        i+=1
+        i += 1
 
     return retorno
+
 
 def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
     fechain = datetime.datetime.strptime(fechain, '%Y-%m-%d')
@@ -241,27 +260,33 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
     llaves = om.keys(taxi_trips['fechas'], fechain.date(), fechafin.date())
     iterador1 = it.newIterator(llaves)
     mapa = m.newMap(numelements=1000,
-                maptype='PROBING',
-                comparefunction=compareid)
+                    maptype='PROBING',
+                    comparefunction=compareid)
     while it.hasNext(iterador1):
         element1 = it.next(iterador1)
-        arbol = om.get(taxi_trips['fechas'],element1)
+        arbol = om.get(taxi_trips['fechas'], element1)
         iterador = it.newIterator(arbol['value'])
         while it.hasNext(iterador):
             element = it.next(iterador)
             trip = m.get(taxi_trips['viajes'], element)
             if m.contains(mapa, trip['value']['taxi_id']):
                 datos = m.get(mapa, trip['value']['taxi_id'])
-                if (trip['value']['trip_miles']) != '' and (trip['value']['trip_total']) != '':
-                    if float(trip['value']['trip_miles']) > 0 and float(trip['value']['trip_total']) >0:
+                if (trip['value']['trip_miles']) != '' and \
+                   (trip['value']['trip_total']) != '':
+                    if float(trip['value']['trip_miles']) > 0 and \
+                       float(trip['value']['trip_total']) > 0:
                         datos['value']['servicios'] += 1
-                        datos['value']['millas'] += float(trip['value']['trip_miles'])
-                        datos['value']['costo'] += float(trip['value']['trip_total'])
-                m.put(mapa,trip['value']['taxi_id'], datos['value'])
+                        tripM = float(trip['value']['trip_miles'])
+                        datos['value']['millas'] += tripM
+                        tripT = float(trip['value']['trip_total'])
+                        datos['value']['costo'] += tripT
+                m.put(mapa, trip['value']['taxi_id'], datos['value'])
             else:
-                dicc = {'servicios':0, 'millas':0, 'costo':0 }
-                if (trip['value']['trip_miles']) != '' and (trip['value']['trip_total']) != '':
-                    if float(trip['value']['trip_miles']) > 0 and float(trip['value']['trip_total']) >0:
+                dicc = {'servicios': 0, 'millas': 0, 'costo': 0}
+                if (trip['value']['trip_miles']) != '' and \
+                   (trip['value']['trip_total']) != '':
+                    if float(trip['value']['trip_miles']) > 0 and \
+                       float(trip['value']['trip_total']) > 0:
                         dicc['servicios'] += 1
                         dicc['millas'] += float(trip['value']['trip_miles'])
                         dicc['costo'] += float(trip['value']['trip_total'])
@@ -275,30 +300,33 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
         element = it.next(iterador)
         dicc = m.get(mapa, element)
         if dicc['value']['costo'] != 0:
-            alfa = dicc['value']['servicios']*dicc['value']['millas']/dicc['value']['costo']
+            alfa = dicc['value']['servicios'] * \
+                   dicc['value']['millas'] / dicc['value']['costo']
         else:
             alfa = 0
         lista.append(dicc['key'])
-        alfas.append(round(alfa,2))
+        alfas.append(round(alfa, 2))
     i = 0
     while i < num and len(alfas) != 0:
         j = alfas.index(max(alfas))
-        retorno.append((lista[j],max(alfas)))
+        retorno.append((lista[j], max(alfas)))
         lista.remove(lista[j])
         alfas.remove(max(alfas))
-        i+=1
+        i += 1
 
     return retorno
+
 
 '''
 PARTE C
 '''
 
 
-
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+
 def compareDates(date1, date2):
 
     if (date1 == date2):
@@ -308,6 +336,7 @@ def compareDates(date1, date2):
     else:
         return -1
 
+
 def compareid(id1, id2):
     id2 = id2['key']
     if (id1 == id2):
@@ -316,6 +345,7 @@ def compareid(id1, id2):
         return 1
     else:
         return -1
+
 
 def compareTrips(trip1, trip2):
 

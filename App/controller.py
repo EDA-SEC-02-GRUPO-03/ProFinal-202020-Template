@@ -41,18 +41,20 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+
 def init():
     """
     Llama la funcion de inicializacion  del modelo.
     """
     # analyzer es utilizado para interactuar con el modelo
-    analyzer = model.newAnalyzer()
+    analyzer = model.create_analyzer()
     return analyzer
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
 
 def loadTrips(taxi_trips):
     for filename in os.listdir(cf.data_dir):
@@ -62,13 +64,14 @@ def loadTrips(taxi_trips):
 
     return taxi_trips
 
+
 def loadFile(taxi_trips, tripfile):
     tripfile = cf.data_dir + tripfile
     input_file = csv.DictReader(open(tripfile, encoding="utf-8"),
                                 delimiter=",")
     for trip in input_file:
         model.addTrip(taxi_trips, trip)
-    print ('Done!')
+    print('Done!')
     return taxi_trips
 
 # ___________________________________________________
