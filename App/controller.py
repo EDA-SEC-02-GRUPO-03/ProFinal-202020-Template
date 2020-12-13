@@ -118,6 +118,10 @@ def ejec_top_taxis_rango(taxi_trips, fechain, fechafin, num):
 PARTE C
 '''
 
+def ejec_mejor_horario(cont, c_a1, c_a2, t1, t2):
+    pass
+
+
 def totalConnections(analyzer):
     """
     Total de enlaces entre las paradas

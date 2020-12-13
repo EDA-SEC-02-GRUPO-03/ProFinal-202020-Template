@@ -76,8 +76,8 @@ def optionTwo():
 
 
 def optionThree():
-    n_taxis = input('✔ Ingrese la cantidad de compañias para el top por taxis: ')
-    n_servi = input('✔ Ingrese la cantidad de compañias para el top por servicios: ')
+    n_taxis = int(input('✔ Ingrese la cantidad de compañias para el top por taxis: '))
+    n_servi = int(input('✔ Ingrese la cantidad de compañias para el top por servicios: '))
 
     try:
         num_taxis = controller.ejec_num_taxis(cont)
@@ -110,10 +110,10 @@ def optionThree():
 
 def optionFour():
     taxis = input('✔ Ingrese la cantidad de taxis para el top por puntaje:')
-    f = input('📅 ingrese la fecha para para el top por puntos:')
+    f = input('📅 ingrese la fecha para para el top por puntos (formato: yyyy,mm,dd):')
     taxis_f = input('✔ Ingrese la cantidad de taxis para el top por puntaje en un rango: ')
-    f_i = input('📅 ingrese la fecha inicial para el top en rango por puntos:')
-    f_f = input('📅 ingrese la fecha final para el top en rango por puntos:')
+    f_i = input('📅 ingrese la fecha inicial para el top en rango por puntos (formato: yyyy,mm,dd):')
+    f_f = input('📅 ingrese la fecha final para el top en rango por puntos (formato: yyyy,mm,dd):')
 
     try:
         resul = controller.ejec_top_taxis_puntaje(cont, f, taxis)
@@ -132,7 +132,16 @@ def optionFour():
 
 
 def optionFive():
-    pass
+    c_a1 = input('📍 Ingrese el community area inicial: ')
+    c_a2 = input('📍 Ingrese el community area final: ')
+    t1 = input('⏱ Ingrese la hora inicial para el recorrido: ')
+    t2 = input('⏱ Ingrese la hora final para el recorrido: ')
+
+    try:
+        resul = controller.ejec_mejor_horario(cont, c_a1, c_a2, t1, t2)
+        print(resul)  # hace falta separar según los distintos resultados
+    except:
+        print('❌ No se pudo encontrar la mejor ruta')
 
 
 """
