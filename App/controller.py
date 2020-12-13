@@ -77,3 +77,17 @@ def loadFile(taxi_trips, tripfile):
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
+
+
+def totalConnections(analyzer):
+    """
+    Total de enlaces entre las paradas
+    """
+    return model.totalConnections(analyzer)
+
+
+def totalStops(analyzer):
+    """
+    Total de paradas de autobus
+    """
+    return model.totalStops(analyzer)

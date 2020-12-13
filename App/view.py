@@ -66,10 +66,10 @@ def printMenu():
 
 def optionTwo():
     controller.loadTrips(cont)
-    numedges = controller.totalConnections(cont)
-    numvertex = controller.totalStops(cont)
-    print('Número de vértices: ' + str(numvertex))
-    print('Número de arcos: ' + str(numedges))
+    # numedges = controller.totalConnections(cont)
+    # numvertex = controller.totalStops(cont)
+    # print('Número de vértices: ' + str(numvertex))
+    # print('Número de arcos: ' + str(numedges))
 
 
 def optionThree():

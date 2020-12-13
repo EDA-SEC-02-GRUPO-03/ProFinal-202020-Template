@@ -119,10 +119,6 @@ def addCompany(taxi_trips, trip):
 
     return taxi_trips
 
-
-# ==============================
-# Funciones Helper
-# ==============================
 '''
 PARTE A
 '''
@@ -320,6 +316,25 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
 '''
 PARTE C
 '''
+
+
+# ==============================
+# Funciones Helper
+# ==============================
+
+
+def totalConnections(analyzer):
+    """
+    Retorna el total arcos del grafo
+    """
+    return gr.numEdges(analyzer['grafo'])
+
+
+def totalStops(analyzer):
+    """
+    Retorna el total de estaciones (vertices) del grafo
+    """
+    return gr.numVertices(analyzer['grafo'])
 
 
 # ==============================
