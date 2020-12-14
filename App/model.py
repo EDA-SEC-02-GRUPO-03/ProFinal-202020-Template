@@ -354,7 +354,7 @@ def mejor_horario(cont, c_a1, c_a2, t1, t2):
         iterador2 = it.newIterator(viaje)
         while it.hasNext(iterador2):
             element = it.next(iterador2)
-            print(element)
+            # print(element)
             salida = element[0]
             llegada = element[1]
             duracion = element[2]
