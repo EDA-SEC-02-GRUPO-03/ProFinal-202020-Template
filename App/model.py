@@ -153,7 +153,7 @@ def top_companias_taxis(taxi_trips, num):
         cantidades.append(afiliados)
 
     i = 0
-    while i <= num:
+    while i < num:
         j = cantidades.index(max(cantidades))
         retorno.append(lista[j])
         lista.remove(lista[j])
@@ -176,7 +176,7 @@ def top_companias_servicios(taxi_trips, num):
         cantidades.append(servicios)
 
     i = 0
-    while i <= num:
+    while i < num:
         j = cantidades.index(max(cantidades))
         retorno.append(lista[j])
         lista.remove(lista[j])

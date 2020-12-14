@@ -80,14 +80,16 @@ def optionThree():
     n_servi = int(input('✔ Ingrese la cantidad de compañias para el top por servicios: '))
 
     try:
-        num_taxis = controller.ejec_num_taxis(cont)
-        print('🚕 Número de taxis:', num_taxis)
+        numero_taxis = controller.ejec_num_taxis(cont)
+        print('Número de taxis: ')
+        print (numero_taxis)
     except:
         print('❌ No se pudo encontrar la cantidad de taxis')
 
     try:
-        num_companias = controller.ejec_num_companias(cont)
-        print('🌐 Numero de compañias:', num_companias)
+        numero_companias = controller.ejec_num_companias(cont)
+        print('Numero de compañias: ')
+        print(numero_companias)
     except:
         print('❌ No se pudo encontrar la cantidad de compañias')
 
