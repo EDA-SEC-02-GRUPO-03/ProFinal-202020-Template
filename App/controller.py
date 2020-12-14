@@ -61,11 +61,6 @@ def loadTrips(taxi_trips, size):
         if filename.endswith('.csv') and size in filename:
             print('⏳ Cargando archivo: ' + filename)
             loadFile(taxi_trips, filename)
-<<<<<<< HEAD
-=======
-    # print(taxi_trips['horas'])
-
->>>>>>> 7bdfd4cf32de79934167b0ad079f5d64b45a5270
     return taxi_trips
 
 
