@@ -106,7 +106,8 @@ def updateDateIndex(taxi_trips, trip):
 def updateHourIndex(taxi_trips, trip):
     occurreddate = trip['trip_start_timestamp'][11:19]
     hora = datetime.datetime.strptime(occurreddate, '%H:%M:%S')
-    info = (trip['pickup_community_area'], trip['dropoff_community_area'], trip['trip_seconds'])
+    # print(hora)
+    info = (int(trip['pickup_community_area']), int(trip['dropoff_community_area']), trip['trip_seconds'])
 
     if (None in info) or ('' in info):
 
