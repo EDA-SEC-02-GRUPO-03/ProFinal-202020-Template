@@ -107,13 +107,13 @@ def updateHourIndex(taxi_trips, trip):
     occurreddate = trip['trip_start_timestamp'][11:19]
     hora = datetime.datetime.strptime(occurreddate, '%H:%M:%S')
     # print(hora)
-    info = (int(trip['pickup_community_area']), int(trip['dropoff_community_area']), trip['trip_seconds'])
+    info = (trip['pickup_community_area'], trip['dropoff_community_area'], trip['trip_seconds'])
 
     if (None in info) or ('' in info):
 
         return taxi_trips
-
     else:
+        info = (float(trip['pickup_community_area']), float(trip['dropoff_community_area']), trip['trip_seconds'])
 
         if om.contains(taxi_trips['horas'], hora.time()):
             entry = om.get(taxi_trips['horas'], hora.time())
@@ -355,7 +355,7 @@ def mejor_horario(cont, c_a1, c_a2, t1, t2):
         iterador2 = it.newIterator(viaje)
         while it.hasNext(iterador2):
             element = it.next(iterador2)
-            # print(element)
+            print(element)
             salida = element[0]
             llegada = element[1]
             duracion = element[2]
@@ -372,6 +372,7 @@ def mejor_horario(cont, c_a1, c_a2, t1, t2):
     ruta = []
     seg = 0
 
+    print(gr.numVertices(grafo))
     dijsktra = djk.Dijkstra(grafo, c_a1)
     print(dijsktra)
     ruta_lt = djk.pathTo(dijsktra, c_a2)

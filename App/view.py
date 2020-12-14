@@ -65,11 +65,11 @@ def printMenu():
 
 
 def optionTwo():
-    try:
-        size = input('Tamaño de los datos (small, medium, large): ')
-        controller.loadTrips(cont, size)
-    except:
-        print('❌ No se pudo cargar los datos')
+    # try:
+    size = input('Tamaño de los datos (small, medium, large): ')
+    controller.loadTrips(cont, size)
+    # except:
+    #     print('❌ No se pudo cargar los datos')
     # numedges = controller.totalConnections(cont)
     # numvertex = controller.totalStops(cont)
     # print('Número de vértices: ' + str(numvertex))
@@ -143,7 +143,7 @@ def optionFive():
     t2 = input('⏱ Ingrese la hora final para el recorrido: ')
 
     # try:
-    resul = controller.ejec_mejor_horario(cont, c_a1, c_a2, t1, t2)
+    resul = controller.ejec_mejor_horario(cont, c_a1 + '.0', c_a2 + '.0', t1, t2)
     print('Tiempo estimado:', resul[1])
     print('Hora ideal de salida:', resul[2])
     print('Ruta:')
