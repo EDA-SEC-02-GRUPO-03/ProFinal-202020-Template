@@ -329,6 +329,57 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
 PARTE C
 '''
 
+def mejor_horario(cont, c_a1, c_a2, t1, t2):
+    arbol = cont['horas']
+    lista = om.values(arbol, t1, t2)
+    horas = om.keys(arbol, t1, t2)
+    dicc = {}
+
+    grafo = gr.newGraph(datastructure='ADJ_LIST',
+                        directed=True,
+                        size=1000,
+                        comparefunction=compareTrips)
+
+    iteradorh = it.newIterator(horas)
+    iterador = it.newIterator(lista)
+    while it.hasNext(iterador):
+        hora = it.next(iteradorh)
+        viaje = it.next(iterador)
+
+        iterador2 = it.newIterator(viaje)
+        while it.hasNext(iterador2):
+            element = it.next(iterador2)
+
+            salida = element[0]
+            llegada = element[1]
+            duracion = element[2]
+            if not gr.containsVertex(grafo, salida):
+                gr.insertVertex(grafo, salida)
+            if not gr.containsVertex(grafo, llegada):
+                gr.insertVertex(grafo, llegada)
+
+            edge = gr.getEdge(grafo, salida, llegada)
+            if edge is None:
+                gr.addEdge(grafo, salida, llegada, duracion)
+                dicc[salida + llegada] = hora
+
+    ruta = []
+    seg = 0
+
+    dijsktra = djk.Dijkstra(grafo, c_a1)
+    if djk.hasPathTo(dijsktra, c_a2):
+        ruta_lt = djk.pathTo(dijsktra, c_a2)
+        iterador = it.newIterator(ruta_lt)
+        ruta.append(c_a1)
+        while it.hasNext(iterador):
+            element = it.next(iterador)
+            ruta.append((element['vertexB']))
+            seg += element['weight']
+        hora = dicc[c_a1 + ruta[0]]
+    return (ruta, seg, hora)
+
+
+
 
 # ==============================
 # Funciones Helper

@@ -144,7 +144,11 @@ def optionFive():
 
     try:
         resul = controller.ejec_mejor_horario(cont, c_a1, c_a2, t1, t2)
-        print(resul)  # hace falta separar según los distintos resultados
+        print('Tiempo estimado:', resul[1])
+        print('Hora ideal de salida:', resul[2])
+        print('Ruta:')
+        for i in resul[0]:
+            print('-', i)  # hace falta separar según los distintos resultados
     except:
         print('❌ No se pudo encontrar la mejor ruta')
 

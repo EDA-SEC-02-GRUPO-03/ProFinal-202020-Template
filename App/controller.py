@@ -120,7 +120,8 @@ PARTE C
 '''
 
 def ejec_mejor_horario(cont, c_a1, c_a2, t1, t2):
-    pass
+    resul = model.mejor_horario(cont, c_a1, c_a2, t1, t2)
+    return resul
 
 
 def totalConnections(analyzer):
