@@ -406,7 +406,8 @@ def totalStops(analyzer):
 
 
 def compareDates(date1, date2):
-
+    date1 = str(date1)
+    date2 = str(date2)
     if (date1 == date2):
         return 0
     elif (date1 > date2):
