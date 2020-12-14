@@ -56,9 +56,9 @@ def init():
 # ___________________________________________________
 
 
-def loadTrips(taxi_trips):
+def loadTrips(taxi_trips, size):
     for filename in os.listdir(cf.data_dir):
-        if filename.endswith('.csv'):
+        if filename.endswith('.csv') and size in filename:
             print('⏳ Cargando archivo: ' + filename)
             loadFile(taxi_trips, filename)
 

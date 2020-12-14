@@ -205,10 +205,8 @@ def top_taxis_puntaje(taxi_trips, fecha, num):
             trip = m.get(taxi_trips['viajes'], element)
             if m.contains(mapa, trip['value']['taxi_id']):
                 datos = m.get(mapa, trip['value']['taxi_id'])
-                if (trip['value']['trip_miles']) != '' and \
-                   (trip['value']['trip_total']) != '':
-                    if float(trip['value']['trip_miles']) > 0 and \
-                       float(trip['value']['trip_total']) > 0:
+                if (trip['value']['trip_miles']) != '' and (trip['value']['trip_total']) != '':
+                    if float(trip['value']['trip_miles']) > 0 and float(trip['value']['trip_total']) > 0:
                         datos['value']['servicios'] += 1
                         tripM = float(trip['value']['trip_miles'])
                         datos['value']['millas'] += tripM
@@ -217,15 +215,12 @@ def top_taxis_puntaje(taxi_trips, fecha, num):
                 m.put(mapa, trip['value']['taxi_id'], datos['value'])
             else:
                 dicc = {'servicios': 0, 'millas': 0, 'costo': 0}
-                if (trip['value']['trip_miles']) != '' and \
-                   (trip['value']['trip_total']) != '':
-                    if float(trip['value']['trip_miles']) > 0 and \
-                       float(trip['value']['trip_total']) > 0:
+                if (trip['value']['trip_miles']) != '' and (trip['value']['trip_total']) != '':
+                    if float(trip['value']['trip_miles']) > 0 and float(trip['value']['trip_total']) > 0:
                         dicc['servicios'] += 1
                         dicc['millas'] += float(trip['value']['trip_miles'])
                         dicc['costo'] += float(trip['value']['trip_total'])
                 m.put(mapa, trip['value']['taxi_id'], dicc)
-
     lista = []
     alfas = []
     retorno = []
@@ -234,8 +229,7 @@ def top_taxis_puntaje(taxi_trips, fecha, num):
         element = it.next(iterador)
         dicc = m.get(mapa, element)
         if dicc['value']['costo'] != 0:
-            alfa = dicc['value']['servicios'] * \
-                   dicc['value']['millas'] / dicc['value']['costo']
+            alfa = dicc['value']['servicios'] * dicc['value']['millas'] / dicc['value']['costo']
         else:
             alfa = 0
         lista.append(dicc['key'])
@@ -252,6 +246,7 @@ def top_taxis_puntaje(taxi_trips, fecha, num):
 
 
 def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
+
     fechain = datetime.datetime.strptime(fechain, '%Y-%m-%d')
     fechafin = datetime.datetime.strptime(fechafin, '%Y-%m-%d')
     llaves = om.keys(taxi_trips['fechas'], fechain.date(), fechafin.date())
@@ -268,10 +263,8 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
             trip = m.get(taxi_trips['viajes'], element)
             if m.contains(mapa, trip['value']['taxi_id']):
                 datos = m.get(mapa, trip['value']['taxi_id'])
-                if (trip['value']['trip_miles']) != '' and \
-                   (trip['value']['trip_total']) != '':
-                    if float(trip['value']['trip_miles']) > 0 and \
-                       float(trip['value']['trip_total']) > 0:
+                if (trip['value']['trip_miles']) != '' and (trip['value']['trip_total']) != '':
+                    if float(trip['value']['trip_miles']) > 0 and float(trip['value']['trip_total']) > 0:
                         datos['value']['servicios'] += 1
                         tripM = float(trip['value']['trip_miles'])
                         datos['value']['millas'] += tripM
@@ -280,10 +273,8 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
                 m.put(mapa, trip['value']['taxi_id'], datos['value'])
             else:
                 dicc = {'servicios': 0, 'millas': 0, 'costo': 0}
-                if (trip['value']['trip_miles']) != '' and \
-                   (trip['value']['trip_total']) != '':
-                    if float(trip['value']['trip_miles']) > 0 and \
-                       float(trip['value']['trip_total']) > 0:
+                if (trip['value']['trip_miles']) != '' and (trip['value']['trip_total']) != '':
+                    if float(trip['value']['trip_miles']) > 0 and float(trip['value']['trip_total']) > 0:
                         dicc['servicios'] += 1
                         dicc['millas'] += float(trip['value']['trip_miles'])
                         dicc['costo'] += float(trip['value']['trip_total'])
@@ -297,8 +288,7 @@ def top_taxis_puntaje_rango(taxi_trips, fechain, fechafin, num):
         element = it.next(iterador)
         dicc = m.get(mapa, element)
         if dicc['value']['costo'] != 0:
-            alfa = dicc['value']['servicios'] * \
-                   dicc['value']['millas'] / dicc['value']['costo']
+            alfa = dicc['value']['servicios'] * dicc['value']['millas'] / dicc['value']['costo']
         else:
             alfa = 0
         lista.append(dicc['key'])
