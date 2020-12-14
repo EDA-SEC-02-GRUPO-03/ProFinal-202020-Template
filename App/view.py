@@ -66,7 +66,8 @@ def printMenu():
 
 def optionTwo():
     try:
-        controller.loadTrips(cont)
+        size = input('Tamaño de los datos (small, medium, large): ')
+        controller.loadTrips(cont, size)
     except:
         print('❌ No se pudo cargar los datos')
     # numedges = controller.totalConnections(cont)
@@ -111,14 +112,15 @@ def optionThree():
 
 
 def optionFour():
-    taxis = input('✔ Ingrese la cantidad de taxis para el top por puntaje:')
-    f = input('📅 ingrese la fecha para para el top por puntos (formato: yyyy,mm,dd):')
-    taxis_f = input('✔ Ingrese la cantidad de taxis para el top por puntaje en un rango: ')
-    f_i = input('📅 ingrese la fecha inicial para el top en rango por puntos (formato: yyyy,mm,dd):')
-    f_f = input('📅 ingrese la fecha final para el top en rango por puntos (formato: yyyy,mm,dd):')
-
+    taxis = int(input('✔ Ingrese la cantidad de taxis para el top por puntaje:'))
+    f = input('📅 ingrese la fecha para para el top por puntos (formato: yyyy-mm-dd):')
+    taxis_f = int(input('✔ Ingrese la cantidad de taxis para el top por puntaje en un rango: '))
+    f_i = input('📅 ingrese la fecha inicial para el top en rango por puntos (formato: yyyy-mm-dd):')
+    f_f = input('📅 ingrese la fecha final para el top en rango por puntos (formato: yyyy-mm-dd):')
+    
     try:
         resul = controller.ejec_top_taxis_puntaje(cont, f, taxis)
+        print ('En la fecha ', f)
         for i in resul:
             print('-',i)
 
@@ -127,6 +129,7 @@ def optionFour():
 
     try:
         resul = controller.ejec_top_taxis_rango(cont, f_i, f_f, taxis_f)
+        print ('En el rango de fechas entre ', f_i, ' y ', f_f)
         for i in resul:
             print('-',i)
     except:
