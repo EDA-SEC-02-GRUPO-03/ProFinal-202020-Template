@@ -70,7 +70,8 @@ def create_analyzer():
                                       size=1000,
                                       comparefunction=compareTrips)
 
-    taxi_trips['horas'] = om.newMap('RBT', comparefunction=compareHours)
+    taxi_trips['horas'] = om.newMap('RBT', comparefunction=compareDates)
+
     return taxi_trips
 
 # ==============================
@@ -81,6 +82,9 @@ def create_analyzer():
 def addTrip(taxi_trips, trip):
     m.put(taxi_trips['viajes'], trip['trip_id'], trip)
     updateDateIndex(taxi_trips, trip)
+    print('jjjjjjjj')
+    updateHourIndex(taxi_trips, trip)
+    print('2')
     addCompany(taxi_trips, trip)
     return taxi_trips
 
@@ -101,6 +105,21 @@ def updateDateIndex(taxi_trips, trip):
 
     return taxi_trips
 
+def updateHourIndex(taxi_trips, trip):
+    occurreddate = trip['trip_start_timestamp'][11:19]
+    hora = datetime.datetime.strptime(occurreddate, '%H:%M:%S')
+    print(hora)
+    info = (trip['pickup_community_area'], trip['dropoff_community_area'], trip['trip_seconds'])
+    if om.contains(taxi_trips['horas'], hora.time()):
+        entry = om.get(taxi_trips['horas'], hora.time())
+        lt.addLast(entry['value'], info)
+        om.put(taxi_trips['horas'], hora.time(), entry['value'])
+    else:
+        ids = lt.newList()
+        lt.addFirst(ids, info)
+        om.put(taxi_trips['horas'], hora.time(), ids)
+
+    return taxi_trips
 
 def addCompany(taxi_trips, trip):
     compania = trip['company']
@@ -376,6 +395,10 @@ def compareTrips(trip1, trip2):
         return -1
 
 def compareHours(h1, h2):
+    print(h1)
+    h1 = str(h1)
+    h2 = str(h2)
+
     if (h1 == h2):
         return 0
     elif (h1 > h2):
