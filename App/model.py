@@ -82,9 +82,7 @@ def create_analyzer():
 def addTrip(taxi_trips, trip):
     m.put(taxi_trips['viajes'], trip['trip_id'], trip)
     updateDateIndex(taxi_trips, trip)
-    # print('jjjjjjjj')
     updateHourIndex(taxi_trips, trip)
-    # print('2')
     addCompany(taxi_trips, trip)
     return taxi_trips
 
@@ -114,7 +112,7 @@ def updateHourIndex(taxi_trips, trip):
     if (None in info) or ('' in info):
 
         return taxi_trips
-    
+
     else:
 
         if om.contains(taxi_trips['horas'], hora.time()):
@@ -357,7 +355,7 @@ def mejor_horario(cont, c_a1, c_a2, t1, t2):
         iterador2 = it.newIterator(viaje)
         while it.hasNext(iterador2):
             element = it.next(iterador2)
-
+            print(element)
             salida = element[0]
             llegada = element[1]
             duracion = element[2]
@@ -375,15 +373,15 @@ def mejor_horario(cont, c_a1, c_a2, t1, t2):
     seg = 0
 
     dijsktra = djk.Dijkstra(grafo, c_a1)
-    if djk.hasPathTo(dijsktra, c_a2):
-        ruta_lt = djk.pathTo(dijsktra, c_a2)
-        iterador = it.newIterator(ruta_lt)
-        ruta.append(c_a1)
-        while it.hasNext(iterador):
-            element = it.next(iterador)
-            ruta.append((element['vertexB']))
-            seg += element['weight']
-        hora = dicc[c_a1 + ruta[0]]
+    print(dijsktra)
+    ruta_lt = djk.pathTo(dijsktra, c_a2)
+    iterador = it.newIterator(ruta_lt)
+    ruta.append(c_a1)
+    while it.hasNext(iterador):
+        element = it.next(iterador)
+        ruta.append((element['vertexB']))
+        seg += element['weight']
+    hora = dicc[c_a1 + ruta[0]]
     return (ruta, seg, hora)
 
 
@@ -445,9 +443,6 @@ def compareTrips(trip1, trip2):
         return -1
 
 def compareHours(h1, h2):
-    # print(h1)
-    h1 = str(h1)
-    h2 = str(h2)
 
     if (h1 == h2):
         return 0
