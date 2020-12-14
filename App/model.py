@@ -69,6 +69,8 @@ def create_analyzer():
                                       directed=True,
                                       size=1000,
                                       comparefunction=compareTrips)
+
+    taxi_trips['horas'] = om.newMap('RBT', comparefunction=compareHours)
     return taxi_trips
 
 # ==============================
@@ -372,3 +374,12 @@ def compareTrips(trip1, trip2):
         return 1
     else:
         return -1
+
+def compareHours(h1, h2):
+    if (h1 == h2):
+        return 0
+    elif (h1 > h2):
+        return 1
+    else:
+        return -1
+
