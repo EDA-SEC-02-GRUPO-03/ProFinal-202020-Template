@@ -110,16 +110,24 @@ def updateHourIndex(taxi_trips, trip):
     hora = datetime.datetime.strptime(occurreddate, '%H:%M:%S')
     # print(hora)
     info = (trip['pickup_community_area'], trip['dropoff_community_area'], trip['trip_seconds'])
-    if om.contains(taxi_trips['horas'], hora.time()):
-        entry = om.get(taxi_trips['horas'], hora.time())
-        lt.addLast(entry['value'], info)
-        om.put(taxi_trips['horas'], hora.time(), entry['value'])
-    else:
-        ids = lt.newList()
-        lt.addFirst(ids, info)
-        om.put(taxi_trips['horas'], hora.time(), ids)
 
-    return taxi_trips
+    if (None in info) or ('' in info):
+
+        return taxi_trips
+    
+    else:
+
+        if om.contains(taxi_trips['horas'], hora.time()):
+            entry = om.get(taxi_trips['horas'], hora.time())
+            lt.addLast(entry['value'], info)
+            om.put(taxi_trips['horas'], hora.time(), entry['value'])
+
+        else:
+            ids = lt.newList()
+            lt.addFirst(ids, info)
+            om.put(taxi_trips['horas'], hora.time(), ids)
+
+        return taxi_trips
 
 def addCompany(taxi_trips, trip):
     compania = trip['company']
